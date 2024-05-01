@@ -1,6 +1,10 @@
 package com.unipapers.requests.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "tab_writer")
 public class Writer {
@@ -17,6 +21,10 @@ public class Writer {
     private String course;
     @Column(unique = true)
     private String RA;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "writer")
+    private List<Research> researches = new ArrayList<>();
 
     public Writer(){}
 
@@ -84,5 +92,9 @@ public class Writer {
 
     public void setRA(String RA) {
         this.RA = RA;
+    }
+
+    public List<Research> getResearches() {
+        return researches;
     }
 }

@@ -10,19 +10,22 @@ public class Research {
     private Long id;
     private String name;
     private String description;
-    @Column(unique = true)
-    private String textFileName;
+
+    @Column(columnDefinition = "TEXT", unique = true)
+    private String blobFile;
     @ManyToOne
     @JoinColumn(name = "writer_id")
     private Writer writer;
 
+    private String collaborators;
+
     public Research(){}
 
-    public Research(Long id, String name, String description, String textFileName, Writer writer) {
+    public Research(Long id, String name, String description, String blobFile, Writer writer) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.textFileName = textFileName;
+        this.blobFile = blobFile;
         this.writer = writer;
     }
 
@@ -50,12 +53,12 @@ public class Research {
         this.description = description;
     }
 
-    public String getTextFileName() {
-        return textFileName;
+    public String getBlobFile() {
+        return blobFile;
     }
 
-    public void setTextFileName(String textFileName) {
-        this.textFileName = textFileName;
+    public void setBlobFile(String blobFile) {
+        this.blobFile = blobFile;
     }
 
     public Writer getWriter() {
@@ -64,5 +67,13 @@ public class Research {
 
     public void setWriter(Writer writer) {
         this.writer = writer;
+    }
+
+    public String getCollaborators() {
+        return collaborators;
+    }
+
+    public void setCollaborators(String collaborators) {
+        this.collaborators = collaborators;
     }
 }

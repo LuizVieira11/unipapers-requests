@@ -11,8 +11,9 @@ public class Research {
     private String name;
     private String description;
 
-    @Column(columnDefinition = "TEXT", unique = true)
-    private String blobFile;
+    @Lob
+    @Column(columnDefinition = "BLOB", unique = true)
+    private byte[] blobFile;
     @ManyToOne
     @JoinColumn(name = "writer_id")
     private Writer writer;
@@ -21,7 +22,7 @@ public class Research {
 
     public Research(){}
 
-    public Research(Long id, String name, String description, String blobFile, Writer writer) {
+    public Research(Long id, String name, String description, byte[] blobFile, Writer writer) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -53,11 +54,11 @@ public class Research {
         this.description = description;
     }
 
-    public String getBlobFile() {
+    public byte[] getBlobFile() {
         return blobFile;
     }
 
-    public void setBlobFile(String blobFile) {
+    public void setBlobFile(byte[] blobFile) {
         this.blobFile = blobFile;
     }
 

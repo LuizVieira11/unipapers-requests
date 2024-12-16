@@ -24,7 +24,7 @@ public class Writer {
 
     @JsonIgnore
     @OneToMany(mappedBy = "writer")
-    private List<Research> researches = new ArrayList<>();
+    private final List<Research> researches = new ArrayList<>();
 
     public Writer(){}
 

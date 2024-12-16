@@ -1,6 +1,10 @@
 package com.unipapers.requests.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import jakarta.persistence.*;
+
+import java.util.Base64;
 
 @Entity(name = "tab_research")
 public class Research {
@@ -12,7 +16,7 @@ public class Research {
     private String description;
 
     @Lob
-    @Column(columnDefinition = "BLOB", unique = true)
+    @Column(columnDefinition = "MEDIUMBLOB", unique = true)
     private byte[] blobFile;
     @ManyToOne
     @JoinColumn(name = "writer_id")

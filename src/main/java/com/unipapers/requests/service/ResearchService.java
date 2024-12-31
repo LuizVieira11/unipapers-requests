@@ -13,8 +13,11 @@ import java.util.Optional;
 @Service
 public class ResearchService {
 
-    @Autowired
-    private ResearchRepository researchRepository;
+    private final ResearchRepository researchRepository;
+
+    public ResearchService(ResearchRepository researchRepository) {
+        this.researchRepository = researchRepository;
+    }
 
     public List<Research> findAll(){
         return researchRepository.findAll();

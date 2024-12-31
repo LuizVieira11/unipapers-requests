@@ -12,8 +12,11 @@ import java.util.Optional;
 @Service
 public class ReaderService {
 
-    @Autowired
-    private ReaderRepository readerRepository;
+    private final ReaderRepository readerRepository;
+
+    ReaderService(ReaderRepository readerRepository) {
+        this.readerRepository = readerRepository;
+    }
 
     public List<Reader> findAll(){
         return readerRepository.findAll();
@@ -27,6 +30,18 @@ public class ReaderService {
     public Reader findById(Long id) {
         Optional<Reader> obj = readerRepository.findById(id);
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+    }
+
+    public Reader update(Long id, Reader reader) {
+        Optional<Reader> updatedReader = readerRepository.findById(id);
+        if (updatedReader.isPresent()) {
+            updatedReader.get().setName(reader.getName());
+            updatedReader.get().setEmail(reader.getEmail());
+            updatedReader.get().setPassword(reader.getPassword());
+            updatedReader.get().setPhone(reader.getPhone());
+            readerRepository.save(updatedReader.get());
+        }
+        return updatedReader.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public Reader insert(Reader reader) {

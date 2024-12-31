@@ -14,8 +14,11 @@ import java.util.List;
 @RequestMapping(value = "api/writers")
 public class WriterController {
 
-    @Autowired
-    private WriterService service;
+    private final WriterService service;
+
+    public WriterController(WriterService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public ResponseEntity<List<Writer>> findAll(){
@@ -33,6 +36,18 @@ public class WriterController {
     public ResponseEntity<Writer> findByEmail(@RequestParam String email){
         Writer obj = service.findByEmail(email);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @GetMapping(value = "/name")
+    public ResponseEntity<List<Writer>> findByName(@RequestParam String name){
+        List<Writer> list = service.findByName(name);
+        return ResponseEntity.ok().body(list);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Writer> update(@PathVariable Long id, @RequestBody Writer writer){
+        Writer updatedWriter = service.update(id, writer);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping

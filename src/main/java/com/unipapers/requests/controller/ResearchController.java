@@ -18,11 +18,14 @@ import java.util.List;
 @RequestMapping(value = "/api/researches")
 public class ResearchController {
 
-    @Autowired
-    private ResearchService service;
+    private final ResearchService service;
 
-    @Autowired
-    WriterService writerService;
+    private final WriterService writerService;
+
+    public ResearchController(ResearchService service, WriterService writerService) {
+        this.service = service;
+        this.writerService = writerService;
+    }
 
     @GetMapping
     public ResponseEntity<List<Research>> findAll(){

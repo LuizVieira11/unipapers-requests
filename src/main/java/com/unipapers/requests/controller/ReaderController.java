@@ -14,8 +14,11 @@ import java.util.List;
 @RequestMapping(value = "/api/readers")
 public class ReaderController {
 
-    @Autowired
-    private ReaderService service;
+    private final ReaderService service;
+
+    public ReaderController(ReaderService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public ResponseEntity<List<Reader>> findAll(){
@@ -33,6 +36,12 @@ public class ReaderController {
     public ResponseEntity<Reader> findByEmail(@RequestParam String email){
         Reader obj = service.findByEmail(email);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Reader> update(@PathVariable Long id, @RequestBody Reader reader){
+        Reader obj = service.update(id, reader);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping

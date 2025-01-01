@@ -1,28 +1,319 @@
-# API Unipapers
+[JAVA_BADGE]:https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white
+[SPRING_BADGE]: https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white
 
-Esta API foi feita para a persistência das informações postadas pelo usuário.  
+<h1 align="center" style="font-weight: bold;">Unipapers Requests 💻</h1>
 
-Até o momento foram feitos apenas endpoints referentes ao POST e GET, o básico devido pesquisa e tempo de criação.
+![java][JAVA_BADGE]
+![spring][SPRING_BADGE]
 
-### A fazer:
-* Atualização do usuário (PUT ou BATCH)
-* Delete do usuário
-* Delete de pesquisas
-* Adicionar usuários reais como colaboradores
+<p align="center">
+ <a href="#started">Getting Started</a> • 
+  <a href="#routes">API Endpoints</a> •
+ <a href="#colab">Collaborators</a> •
+ <a href="#contribute">Contribute</a>
+</p>
 
-### EndPoints de acesso:
-* GET:
-  * /api/readers
-  * /api/readers/{id}
-  * /api/readers/email?={email}
-  * /api/writers
-  * /api/writers/{id}
-  * /api/writers/email?={email}
-  * /api/researches
-  * /api/researches/{id}
-  * /api/researches/name?={name}
-  * /api/researches/writer?={writer}
-* POST:
-  * /api/readers
-  * /api/writers
-  * /api/researches 
+<p align="center">
+  <b>
+    This project is an API developed using Java, Spring Boot, and MySQL, 
+    designed to support a Flutter application created for a university 
+    project. It serves as the backend foundation, enabling seamless 
+    integration and reliable data management for the application.
+  </b>
+</p>
+
+<h2 id="started">🚀 Getting started</h2>
+
+The project is running with Spring and configurations in Maven, the easiest way to run
+this project is by using the IntelliJ IDEA IDE, with all the plugins necessary to run
+the Spring app
+
+<h3>Prerequisites</h3>
+
+[//]: # (Here you list all prerequisites necessary for running your project.  )
+
+[//]: # (For example:)
+
+- [Git](https://git-scm.com/downloads)
+- [JDK Java 17](https://www.oracle.com/br/java/technologies/downloads/#java17-windows)
+- [Maven](https://maven.apache.org/)
+- [MySQL](https://dev.mysql.com/downloads/installer/)
+
+<h3>Cloning</h3>
+
+[//]: # (How to clone your project)
+
+```bash
+git clone https://github.com/LuizVieira11/unipapers-requests.git
+```
+
+<h3> Environment Variables</h3>
+
+Use the `application.properties.example` as reference to create your configuration file `application.properties` with your database Credentials
+
+```yaml
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/db_name
+spring.datasource.username=username
+spring.datasource.password=password
+
+spring.jpa.show-sql=false
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.format_sql=false
+```
+
+<h3>Starting</h3>
+
+[//]: # (How to start your project)
+
+```bash
+cd project-directory\unipapers-requests
+mvn clean install
+cd target
+java -jar file-name.jar
+``````
+
+
+<h2 id="routes">📍 API Endpoints</h2>
+
+[//]: # (Here you can list the main routes of your API, and what are their expected request bodies.)
+
+| route                             | description                                                                         |
+|-----------------------------------|-------------------------------------------------------------------------------------|
+| <kbd>GET /api/readers</kbd>       | retrieves all **readers** info see [response details](#get-all-readers-detail)      |
+| <kbd>GET /api/readers/{id}</kbd>  | retrieves **specified reader** info see [response details](#get-reader-detail)      |
+| <kbd>GET /api/readers/email</kbd> | retrieves **reader by email** info see [response details](#get-reader-email-detail) |
+| <kbd>GET /api/writers</kbd>       | retrieves **writers** info see [response details](#get-all-writers-detail)          |
+| <kbd>GET /api/writers/{id}</kbd>  | retrieves **specified writers** info see [response details](#get-writers-detail)    |
+| <kbd>GET /api/writers/email</kbd> | retrieves **writer by email** info see [response details](#get-writer-email-detail) |
+| <kbd>GET /api/writers/name</kbd>  | retrieves **writer by name** info see [response details](#get-writer-name-detail)   |
+| <kbd>POST /api/readers</kbd>      | insert **reader** info see [request details](#post-reader-detail)                   |
+| <kbd>POST /api/writers</kbd>      | insert **writer** info see [request details](#post-writer-detail)                   |
+| <kbd>PUT /api/readers/{id}</kbd>  | update **reader** info see [request details](#update-reader-detail)                 |
+| <kbd>PUT /api/writers/{id}</kbd>  | update **writer** info see [request details](#update-writer-detail)                 |
+
+<h3 id="get-all-readers-detail">GET /api/readers</h3>
+
+**RESPONSE**
+```json
+[
+  {
+    "id": 1,
+    "name": "Luiz Vieira",
+    "phone": "(11) 99999-9999",
+    "email": "his-email@email.com",
+    "password": "password123"
+  }
+]
+```
+
+---
+
+<h3 id="get-reader-detail">GET /api/readers/{id}</h3>
+
+**RESPONSE**
+```json
+{
+    "id": 1,
+    "name": "Luiz Vieira",
+    "phone": "(11) 99999-9999",
+    "email": "his-email@email.com",
+    "password": "password123"
+}
+```
+
+---
+
+<h3 id="get-reader-email-detail">GET /api/readers/email?email=his-email@email.com</h3>
+
+**RESPONSE**
+```json
+{
+    "id": 1,
+    "name": "Luiz Vieira",
+    "phone": "(11) 99999-9999",
+    "email": "his-email@email.com",
+    "password": "password123"
+}
+```
+
+---
+
+<h3 id="get-all-writers-detail">GET /api/writers</h3>
+
+**RESPONSE**
+```json
+[
+  {
+    "id": 1,
+    "name": "Luiz Vieira",
+    "phone": "(11) 99999-9999",
+    "email": "his-email@email.com",
+    "password": "password123",
+    "course": "Computer Engineering",
+    "ra": "00119999"
+  }
+]
+```
+
+---
+
+<h3 id="get-writer-detail">GET /api/writers/{id}</h3>
+
+**RESPONSE**
+```json
+{
+  "id": 1,
+  "name": "Luiz Vieira",
+  "phone": "(11) 99999-9999",
+  "email": "his-email@email.com",
+  "password": "password123",
+  "course": "Computer Engineering",
+  "ra": "00119999"
+}
+```
+
+---
+
+<h3 id="get-writer-email-detail">GET /api/writers/email?email=his-email@email.com</h3>
+
+**RESPONSE**
+```json
+{
+  "id": 1,
+  "name": "Luiz Vieira",
+  "phone": "(11) 99999-9999",
+  "email": "his-email@email.com",
+  "password": "password123",
+  "course": "Computer Engineering",
+  "ra": "00119999"
+}
+```
+
+---
+
+<h3 id="get-writer-name-detail">GET /api/writers/name?name=lu</h3>
+
+**RESPONSE**
+```json
+[
+    {
+      "id": 1,
+      "name": "Luiz Vieira",
+      "phone": "(11) 99999-9999",
+      "email": "his-email@email.com",
+      "password": "password123",
+      "course": "Computer Engineering",
+      "ra": "00119999"
+    }
+]
+```
+
+---
+
+<h3 id="post-reader-detail">POST /api/readers</h3>
+
+**REQUEST**
+```json
+{
+  "name": "Luiz Vieira",
+  "phone": "(11) 99999-9999",
+  "email": "his-email@email.com",
+  "password": "password123"
+}
+```
+
+**RESPONSE**
+```json
+{
+  "id": 1,
+  "name": "Luiz Vieira",
+  "phone": "(11) 99999-9999",
+  "email": "his-email@email.com",
+  "password": "password123"
+}
+```
+
+---
+
+<h3 id="post-writer-detail">POST /api/writers</h3>
+
+**REQUEST**
+```json
+{
+  "name": "Luiz Vieira",
+  "phone": "(11) 99999-9999",
+  "email": "his-email@email.com",
+  "password": "password123",
+  "course": "Computer Engineering",
+  "ra": "00119999"
+}
+```
+
+**RESPONSE**
+```json
+{
+  "id": 1,
+  "name": "Luiz Vieira",
+  "phone": "(11) 99999-9999",
+  "email": "his-email@email.com",
+  "password": "password123",
+  "course": "Computer Engineering",
+  "ra": "00119999"
+}
+```
+
+---
+
+<h3 id="update-reader-detail">PUT /api/readers/{id}</h3>
+
+**REQUEST**
+```json
+{
+  "name": "Luiz Vieira",
+  "phone": "(11) 99999-9999",
+  "email": "updated-email@email.com",
+  "password": "password123"
+}
+```
+
+---
+
+<h3 id="update-writer-detail">PUT /api/readers/{id}</h3>
+
+**REQUEST**
+```json
+{
+  "name": "Luiz Vieira",
+  "phone": "(11) 99999-9999",
+  "email": "updated-email@email.com",
+  "password": "password123",
+  "course": "Computer Engineering",
+  "ra": "00119999"
+}
+```
+
+<h2 id="colab">🤝 Collaborators</h2>
+
+Special thank you for all people that contributed for this project.
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/LuizVieira11">
+        <img src="https://avatars.githubusercontent.com/u/134332698?v=4" width="100px;" alt="Luiz Vieira Profile Picture"/><br>
+        <sub>
+          <b>Luiz Vieira</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/RafaSanDev">
+        <img src="https://avatars.githubusercontent.com/u/101602882?v=4" width="100px;" alt="Rafael Santos Profile Picture"/><br>
+        <sub>
+          <b>Rafael Santos</b>
+        </sub>
+      </a>
+    </td>
+  </tr>
+</table>

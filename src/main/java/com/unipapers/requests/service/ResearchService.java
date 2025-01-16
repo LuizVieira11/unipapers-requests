@@ -29,6 +29,7 @@ public class ResearchService {
     }
 
     public List<Research> findByName(String name){
+//        List<Research> list = researchRepository.findResearchByNameOrWriterContaining(name);
         List<Research> list = researchRepository.findResearchByNameContaining(name);
         return list;
     }

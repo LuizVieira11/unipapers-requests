@@ -45,13 +45,6 @@ public class ResearchController {
         return ResponseEntity.ok().body(list);
     }
 
-    @GetMapping(value = "/writer")
-    public ResponseEntity<List<Research>> findByWriter(@RequestParam Long id){
-        Writer author = writerService.findById(id);
-        List<Research> list = service.findByWriter(author);
-        return ResponseEntity.ok().body(list);
-    }
-
     @PostMapping
     public ResponseEntity<Research> insert(@RequestBody Research research){
         research.setWriter(writerService.findById(research.getWriter().getId()));

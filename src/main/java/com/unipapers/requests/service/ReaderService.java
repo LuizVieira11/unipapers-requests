@@ -3,7 +3,6 @@ package com.unipapers.requests.service;
 import com.unipapers.requests.model.entity.Reader;
 import com.unipapers.requests.model.repository.ReaderRepository;
 import com.unipapers.requests.service.exceptions.ResourceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +31,10 @@ public class ReaderService {
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
+    public Reader insert(Reader reader) {
+        return readerRepository.save(reader);
+    }
+
     public Reader update(Long id, Reader reader) {
         Optional<Reader> updatedReader = readerRepository.findById(id);
         if (updatedReader.isPresent()) {
@@ -44,8 +47,12 @@ public class ReaderService {
         return updatedReader.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
-    public Reader insert(Reader reader) {
-        return readerRepository.save(reader);
+    public void delete(Long id){
+        try {
+            Reader reader = findById(id);
+            readerRepository.delete(reader);
+        }catch (ResourceNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
     }
-
 }

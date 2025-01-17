@@ -7,8 +7,7 @@ import com.unipapers.requests.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ResearchService {
@@ -29,13 +28,8 @@ public class ResearchService {
     }
 
     public List<Research> findByName(String name){
-//        List<Research> list = researchRepository.findResearchByNameOrWriterContaining(name);
-        List<Research> list = researchRepository.findResearchByNameContaining(name);
+        List<Research> list = researchRepository.findResearchByNameOrWriterContaining(name);
         return list;
-    }
-
-    public List<Research> findByWriter(Writer writer){
-        return researchRepository.findResearchByWriter(writer);
     }
 
     public Research insert(Research research){

@@ -78,19 +78,23 @@ java -jar file-name.jar
 
 [//]: # (Here you can list the main routes of your API, and what are their expected request bodies.)
 
-| route                             | description                                                                         |
-|-----------------------------------|-------------------------------------------------------------------------------------|
-| <kbd>GET /api/readers</kbd>       | retrieves all **readers** info see [response details](#get-all-readers-detail)      |
-| <kbd>GET /api/readers/{id}</kbd>  | retrieves **specified reader** info see [response details](#get-reader-detail)      |
-| <kbd>GET /api/readers/email</kbd> | retrieves **reader by email** info see [response details](#get-reader-email-detail) |
-| <kbd>GET /api/writers</kbd>       | retrieves **writers** info see [response details](#get-all-writers-detail)          |
-| <kbd>GET /api/writers/{id}</kbd>  | retrieves **specified writers** info see [response details](#get-writers-detail)    |
-| <kbd>GET /api/writers/email</kbd> | retrieves **writer by email** info see [response details](#get-writer-email-detail) |
-| <kbd>GET /api/writers/name</kbd>  | retrieves **writer by name** info see [response details](#get-writer-name-detail)   |
-| <kbd>POST /api/readers</kbd>      | insert **reader** info see [request details](#post-reader-detail)                   |
-| <kbd>POST /api/writers</kbd>      | insert **writer** info see [request details](#post-writer-detail)                   |
-| <kbd>PUT /api/readers/{id}</kbd>  | update **reader** info see [request details](#update-reader-detail)                 |
-| <kbd>PUT /api/writers/{id}</kbd>  | update **writer** info see [request details](#update-writer-detail)                 |
+| route                                | description                                                                                                          |
+|--------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| <kbd>GET /api/readers</kbd>          | retrieves **all readers** info see [response details](#get-all-readers-detail)                                       |
+| <kbd>GET /api/readers/{id}</kbd>     | retrieves **specified reader** info see [response details](#get-reader-detail)                                       |
+| <kbd>GET /api/readers/email</kbd>    | retrieves **reader by email** info see [response details](#get-reader-email-detail)                                  |
+| <kbd>GET /api/writers</kbd>          | retrieves **all writers** info see [response details](#get-all-writers-detail)                                       |
+| <kbd>GET /api/writers/{id}</kbd>     | retrieves **specified writers** info see [response details](#get-writers-detail)                                     |
+| <kbd>GET /api/writers/email</kbd>    | retrieves **writer by email** info see [response details](#get-writer-email-detail)                                  |
+| <kbd>GET /api/writers/name</kbd>     | retrieves **writer by name** info see [response details](#get-writer-name-detail)                                    |
+| <kbd>GET /api/researches/</kbd>      | retrieves **all researches** info see [response details](#get-all-researches-detail)                                 |
+| <kbd>GET /api/researches/{id}</kbd>  | retrieves **specified researches** info see [response details](#get-researches-detail)                               |
+| <kbd>GET /api/researches/name</kbd>  | retrieves **researches by the title or name of the author** info see [response details](#get-researches-name-detail) |
+| <kbd>POST /api/readers</kbd>         | insert **reader** info see [request details](#post-reader-detail)                                                    |
+| <kbd>POST /api/writers</kbd>         | insert **writer** info see [request details](#post-writer-detail)                                                    |
+| <kbd>POST /api/researches</kbd>      | insert **research** info see [request details](#post-research-detail)                                                |
+| <kbd>PUT /api/readers/{id}</kbd>     | update **reader** info see [request details](#update-reader-detail)                                                  |
+| <kbd>PUT /api/writers/{id}</kbd>     | update **writer** info see [request details](#update-writer-detail)                                                  |
 
 <h3 id="get-all-readers-detail">GET /api/readers</h3>
 
@@ -211,6 +215,82 @@ java -jar file-name.jar
 
 ---
 
+<h3 id="get-all-researches-detail">GET /api/researches/</h3>
+
+**RESPONSE**
+```json
+[
+  {
+    "id": 1,
+    "name": "Research Title",
+    "description": "Research Description",
+    "blobFile": "[blobText]",
+    "writer": {
+        "id": 1,
+        "name": "Luiz Vieira",
+        "phone": "(11) 99999-9999",
+        "email": "his-email@email.com",
+        "password": "password123",
+        "course": "Computer Engineering",
+        "ra": "00119999"
+    },
+    "collaborators": "Name of collabs"
+  }
+]
+```
+
+---
+
+<h3 id="get-researches-detail">GET /api/researches/1</h3>
+
+**RESPONSE**
+```json
+{
+    "id": 1,
+    "name": "Research Title",
+    "description": "Research Description",
+    "blobFile": "[blobText]",
+    "writer": {
+        "id": 1,
+        "name": "Luiz Vieira",
+        "phone": "(11) 99999-9999",
+        "email": "his-email@email.com",
+        "password": "password123",
+        "course": "Computer Engineering",
+        "ra": "00119999"
+    },
+    "collaborators": "Name of collabs"
+}
+```
+
+---
+
+<h3 id="get-researches-name-detail">GET /api/researches/name?name=lu</h3>
+
+**RESPONSE**
+```json
+[
+  {
+    "id": 1,
+    "name": "Research Title",
+    "description": "Research Description",
+    "blobFile": "[blobText]",
+    "writer": {
+      "id": 1,
+      "name": "Luiz Vieira",
+      "phone": "(11) 99999-9999",
+      "email": "his-email@email.com",
+      "password": "password123",
+      "course": "Computer Engineering",
+      "ra": "00119999"
+    },
+    "collaborators": "Name of collabs"
+  }
+]
+```
+
+---
+
 <h3 id="post-reader-detail">POST /api/readers</h3>
 
 **REQUEST**
@@ -260,6 +340,44 @@ java -jar file-name.jar
   "password": "password123",
   "course": "Computer Engineering",
   "ra": "00119999"
+}
+```
+
+---
+
+<h3 id="post-research-detail">POST /api/researches</h3>
+
+**REQUEST**
+```json
+{
+  "name": "Research Test",
+  "description": "Description Test",
+  "textFileName": "[blobText]",
+  "writer": {
+    "id": "1"
+  },
+  "collaborators": "Name of collabs"
+}
+
+```
+
+**RESPONSE**
+```json
+{
+  "id": 2,
+  "name": "Research Test",
+  "description": "Description Test",
+  "blobFile": "[blobText]",
+  "writer": {
+    "id": 1,
+    "name": "Luiz Vieira",
+    "phone": "(11) 99999-9999",
+    "email": "his-email@email.com",
+    "password": "password123",
+    "course": "Computer Engineering",
+    "ra": "00119999"
+  },
+  "collaborators": "Name of collabs"
 }
 ```
 

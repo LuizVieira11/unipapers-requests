@@ -49,9 +49,11 @@ git clone https://github.com/LuizVieira11/unipapers-requests.git
 
 <h3> Environment Variables</h3>
 
-Use the `application.properties.example` as reference to create your configuration file `application.properties` with your database Credentials
+Use the `application-example.properties` or `application-example.yml` as reference to create your configuration file `application.properties` with your database Credentials
 
-```yaml
+_**Properties**_ 
+
+```properties
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/db_name
 spring.datasource.username=username
@@ -60,6 +62,27 @@ spring.datasource.password=password
 spring.jpa.show-sql=false
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.properties.hibernate.format_sql=false
+```
+
+_**Yml**_
+
+```yml
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/db_name
+    username: username
+    password: password
+
+  jpa:
+    show-sql: false
+
+    hibernate:
+      ddl-auto: update
+
+    properties:
+      hibernate:
+        format_sql: false
 ```
 
 <h3>Starting</h3>
@@ -71,7 +94,7 @@ cd project-directory\unipapers-requests
 mvn clean install
 cd target
 java -jar file-name.jar
-``````
+```
 
 
 <h2 id="routes">📍 API Endpoints</h2>
